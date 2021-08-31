@@ -1,13 +1,10 @@
 import 'package:dio/dio.dart';
 
-
 String dioErrorHandle(DioError error) {
-  
-   print('......................dioerror...........................UtilError$error');
+  print(
+      '......................dioerror...........................UtilError$error');
   switch (error.type) {
-      
     case DioErrorType.RESPONSE:
-    
       return error.response?.data['message'].toString() ?? 'Unknown error';
 
     case DioErrorType.SEND_TIMEOUT:
@@ -29,7 +26,7 @@ class HTTPManager {
     responseType: ResponseType.json,
   );
 
-    ///Get method
+  ///Get method
   Future<dynamic> get({
     String url,
     Map<String, dynamic> params,
@@ -47,8 +44,6 @@ class HTTPManager {
       return {"message": dioErrorHandle(error)};
     }
   }
-
-
 
   factory HTTPManager() {
     return HTTPManager._internal();

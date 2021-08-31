@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
                   );
                 },
                 text: 'Take Trivia',
-                width: 160,
+                width: 170,
               )
             ],
           ),

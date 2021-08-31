@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'bloc.dart';
 
 class QuizBloc extends Bloc<QuizEvent, QuizState> {
-
   ApiRepository repository;
   int i = 0;
 
@@ -22,9 +21,7 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     if (event is FetchQuizEvent) {
       yield QuizLoadingState();
       try {
-        QuizModel details = await repository.getQuestions(
-          id:event.id
-        );
+        QuizModel details = await repository.getQuestions(id: event.id);
         print('............bloc ......${details.results}');
         yield QuizLoadedState(details: details.results);
       } catch (e) {
@@ -32,5 +29,4 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
       }
     }
   }
-
 }

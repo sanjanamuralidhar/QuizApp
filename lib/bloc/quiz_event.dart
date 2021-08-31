@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-abstract class QuizEvent extends Equatable{}
+abstract class QuizEvent extends Equatable {}
 
 class FetchQuizEvent extends QuizEvent {
   final int id;

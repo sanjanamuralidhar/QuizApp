@@ -20,7 +20,6 @@ class QuizLoadingState extends QuizState {
 
 // ignore: must_be_immutable
 class QuizLoadedState extends QuizState {
-
   List<ResultModel> details;
 
   QuizLoadedState({@required this.details});
@@ -33,10 +32,9 @@ class QuizLoadedState extends QuizState {
 
 // ignore: must_be_immutable
 class QuizErrorState extends QuizState {
-
   String message;
 
- QuizErrorState({@required this.message});
+  QuizErrorState({@required this.message});
 
   @override
   // ignore: todo

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:QuizApp/Component/TriviaButton.dart';
 import 'package:QuizApp/bloc/bloc.dart';
 import 'package:QuizApp/models/QuizModel.dart';
+import 'package:QuizApp/screens/homePage.dart';
 import 'package:QuizApp/screens/scorePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +18,7 @@ class _QuizPageState extends State<QuizPage> {
   String _character;
   int count = 1;
   bool nextbutton = true;
+  bool previousButton = false;
   int total = 0;
   int question = 1;
 
@@ -75,13 +77,16 @@ class _QuizPageState extends State<QuizPage> {
             child: Text('Trivia App'.toUpperCase(),
                 style: Theme.of(context).textTheme.headline4),
           )),
+          SizedBox(height: 50),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                Text(question.toString()),
-                SizedBox(width: 10,),
-                Text(quiz[0].question),
+                Text("${question.toString()}."),
+                SizedBox(
+                  width: 10,
+                ),
+                Flexible(child: Text(quiz[0].question)),
               ],
             ),
           ),
@@ -132,38 +137,92 @@ class _QuizPageState extends State<QuizPage> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Align(
-              alignment: Alignment.bottomRight,
-              child: nextbutton?
-              TriviaButton(
-                icon: Icons.arrow_forward,
-                onPressed: () {
-                          setState(() {
-                            count++;
-                            _quizBloc.add(FetchQuizEvent(id: count));
-                            question++;
-                          });
-                          log(count.toString());
-                          log(total.toString());
-                          if (count == 11) {
-                            setState(() {
-                              nextbutton = false;
-                              Navigator.push<void>(
-                                context,
-                                MaterialPageRoute<void>(
-                                  builder: (BuildContext context) => ScorePage(
-                                    total: total,
+            child: Stack(
+              children: [
+                // Previous button for going to previous question
+
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: previousButton
+                      ? SizedBox(
+                          width: 160,
+                          child: FlatButton(
+                              color: Colors.yellow[700],
+                              onPressed: () {
+                                setState(() {
+                                  count--;
+                                  _quizBloc.add(FetchQuizEvent(id: count));
+                                  question--;
+                                });
+                                log(count.toString());
+                                log(total.toString());
+                                if (count == 1) {
+                                  setState(() {
+                                    previousButton = false;
+                                  });
+                                }
+                              },
+                              child: Stack(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(3.0),
+                                    child: Icon(Icons.arrow_back),
                                   ),
-                                ),
-                              );
+                                  SizedBox(width: 30),
+                                  Align(
+                                    alignment: Alignment.center,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text('previous'.toUpperCase(),
+                                          style: TextStyle(
+                                              color: Colors.blue[700])),
+                                    ),
+                                  ),
+                                ],
+                              )),
+                        )
+                      : Text(''),
+                ),
+
+                // next button for going to previous question
+
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: nextbutton
+                      ? TriviaButton(
+                          icon: Icons.arrow_forward,
+                          onPressed: () {
+                            setState(() {
+                              count++;
+                              _quizBloc.add(FetchQuizEvent(id: count));
+                              previousButton = true;
+                              question++;
                             });
-                          }
-                        },
-                text: 'Next',
-                width: 160,
-              ):ScorePage(
-                        total: total,
-                      ),
+                            log(count.toString());
+                            log(total.toString());
+                            if (count == 11) {
+                              setState(() {
+                                nextbutton = false;
+                                Navigator.push<void>(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                    builder: (BuildContext context) =>
+                                        ScorePage(
+                                      total: total,
+                                    ),
+                                  ),
+                                );
+                              });
+                            }
+                          },
+                          text: 'Next',
+                          width: 150,
+                        )
+                      : ScorePage(
+                          total: total,
+                        ),
+                ),
+              ],
             ),
           ),
         ],
