@@ -18,11 +18,11 @@ class ScorePage extends StatelessWidget {
             children: [
               Center(
                   child: Padding(
-                padding: const EdgeInsets.all(30.0),
+                padding: const EdgeInsets.all(50.0),
                 child: Text('Trivia App'.toUpperCase(),
                     style: Theme.of(context).textTheme.headline4),
               )),
-              SizedBox(height: 50),
+              SizedBox(height: 100),
               Text('Your Score is',
                   style: Theme.of(context).textTheme.headline6),
               Text("${total.toString()}/100",
