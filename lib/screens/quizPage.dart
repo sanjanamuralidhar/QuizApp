@@ -78,18 +78,27 @@ class _QuizPageState extends State<QuizPage> {
                 style: Theme.of(context).textTheme.headline4),
           )),
           SizedBox(height: 50),
+          Align(
+            alignment:Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Question $question',style: TextStyle(color: Colors.blue),),
+            )),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                Text("${question.toString()}."),
-                SizedBox(
-                  width: 10,
-                ),
+               
                 Flexible(child: Text(quiz[0].question)),
               ],
             ),
           ),
+           Align(
+            alignment:Alignment.topLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('Choices',style: TextStyle(color: Colors.blue),),
+            )),
           Align(
               alignment: Alignment.topLeft,
               child: Row(
@@ -139,50 +148,51 @@ class _QuizPageState extends State<QuizPage> {
             padding: const EdgeInsets.all(8.0),
             child: Stack(
               children: [
-                // Previous button for going to previous question
 
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: previousButton
-                      ? SizedBox(
-                          width: 160,
-                          child: FlatButton(
-                              color: Colors.yellow[700],
-                              onPressed: () {
-                                setState(() {
-                                  count--;
-                                  _quizBloc.add(FetchQuizEvent(id: count));
-                                  question--;
-                                });
-                                log(count.toString());
-                                log(total.toString());
-                                if (count == 1) {
-                                  setState(() {
-                                    previousButton = false;
-                                  });
-                                }
-                              },
-                              child: Stack(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: Icon(Icons.arrow_back),
-                                  ),
-                                  SizedBox(width: 30),
-                                  Align(
-                                    alignment: Alignment.center,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text('previous'.toUpperCase(),
-                                          style: TextStyle(
-                                              color: Colors.blue[700])),
-                                    ),
-                                  ),
-                                ],
-                              )),
-                        )
-                      : Text(''),
-                ),
+                //////////// Previous button for going to previous question////////////////
+
+                // Align(
+                //   alignment: Alignment.bottomLeft,
+                //   child: previousButton
+                //       ? SizedBox(
+                //           width: 160,
+                //           child: FlatButton(
+                //               color: Colors.yellow[700],
+                //               onPressed: () {
+                //                 setState(() {
+                //                   count--;
+                //                   _quizBloc.add(FetchQuizEvent(id: count));
+                //                   question--;
+                //                 });
+                //                 log(count.toString());
+                //                 log(total.toString());
+                //                 if (count == 1) {
+                //                   setState(() {
+                //                     previousButton = false;
+                //                   });
+                //                 }
+                //               },
+                //               child: Stack(
+                //                 children: [
+                //                   Padding(
+                //                     padding: const EdgeInsets.all(3.0),
+                //                     child: Icon(Icons.arrow_back),
+                //                   ),
+                //                   SizedBox(width: 30),
+                //                   Align(
+                //                     alignment: Alignment.center,
+                //                     child: Padding(
+                //                       padding: const EdgeInsets.all(8.0),
+                //                       child: Text('previous'.toUpperCase(),
+                //                           style: TextStyle(
+                //                               color: Colors.blue[700])),
+                //                     ),
+                //                   ),
+                //                 ],
+                //               )),
+                //         )
+                //       : Text(''),
+                // ),
 
                 // next button for going to previous question
 
